@@ -22,6 +22,8 @@
 
   <link rel="stylesheet" href="css/style.css">
 
+  <link rel="stylesheet" href="css/ldncljweb.css">
+
   <!-- More ideas for your <head> here: h5bp.com/d/head-Tips -->
 
   <!-- All JavaScript at the bottom, except this Modernizr build.
@@ -33,15 +35,87 @@
   <!-- Prompt IE 6 users to install Chrome Frame. Remove this if you support IE 6.
        chromium.org/developers/how-tos/chrome-frame-getting-started -->
   <!--[if lt IE 7]><p class=chromeframe>Your browser is <em>ancient!</em> <a href="http://browsehappy.com/">Upgrade to a different browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to experience this site.</p><![endif]-->
-  <header>
 
-  </header>
-  <div role="main">
+  <div id="container">
+      <header>
+          <div id="logo">London Clojurians<a href="/"></a></div>
+          <div class="title">The London Clojure Community</div>
+          <div class="sub-title">Dojo on the last Tuesday of every month.<br/>A fun evening of Clojure from rank
+              beginner upwards!
+          </div>
+      </header>
 
+      <div role="main">
+          <div id="sidebar">
+              <p>The Dojo is sponsored by the lovely people at <a href="http://www.thoughtworks.com/">ThoughtWorks</a>.
+              </p>
+
+              <p class="address">ThoughtWorks Ltd.<br/>
+                  9th Floor Berkshire House<br/>
+                  168-173 High Holborn<br/>
+                  London,<br/>
+                  WC1V 7AA</p>
+
+              <iframe width="340" height="350" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"
+                      src="http://maps.google.co.uk/maps?f=q&amp;source=s_q&amp;hl=en&amp;geocode=&amp;q=168+High+Holborn,+London&amp;aq=0&amp;oq=168+high+hol&amp;sll=53.800651,-4.064941&amp;sspn=25.569045,30.981445&amp;ie=UTF8&amp;hq=&amp;hnear=168+High+Holborn,+London+WC1V+7AA,+United+Kingdom&amp;t=m&amp;z=14&amp;ll=51.515901,-0.125616&amp;output=embed"></iframe><br/>
+
+              <div id="twitter">
+                  <script charset="utf-8" src="http://widgets.twimg.com/j/2/widget.js"></script>
+                  <script>
+                      new TWTR.Widget({
+                          version:2,
+                          type:'search',
+                          search:'#ldnclj',
+                          interval:30000,
+                          title:'#ldnclj',
+                          subject:'',
+                          width:340,
+                          height:300,
+                          theme:{
+                              shell:{
+                                  background:'#8ec1da',
+                                  color:'#ffffff'
+                              },
+                              tweets:{
+                                  background:'#ffffff',
+                                  color:'#444444',
+                                  links:'#1985b5'
+                              }
+                          },
+                          features:{
+                              scrollbar:false,
+                              loop:true,
+                              live:true,
+                              behavior:'default'
+                          }
+                      }).render().start();
+                  </script>
+              </div>
+          </div>
+
+          <div id="posts">
+              <div class="post">
+                  <h1>May 2012 Dojo Signup Available</h1>
+                  <p>Sign up for the latest dojo is up <a href="http://ldnclj-may2012.eventbrite.co.uk/">here</a>.</p>
+              </div>
+
+              <div class="post">
+                  <h1>Last Dojo Photos Available</h1>
+                  <p>
+                      <object width="400" height="300">
+                          <param name="flashvars" value="offsite=true&amp;lang=en-us&amp;page_show_url=%2Fphotos%2F78509844%40N08%2Fsets%2F72157629322054964%2Fshow%2F&amp;page_show_back_url=%2Fphotos%2F78509844%40N08%2Fsets%2F72157629322054964%2F&amp;set_id=72157629322054964&amp;jump_to=" />
+                          <param name="movie" value="http://www.flickr.com/apps/slideshow/show.swf?v=109615" />
+                          <param name="allowFullScreen" value="true" /><embed src="http://www.flickr.com/apps/slideshow/show.swf?v=109615" type="application/x-shockwave-flash" width="400" height="300" flashvars="offsite=true&amp;lang=en-us&amp;page_show_url=%2Fphotos%2F78509844%40N08%2Fsets%2F72157629322054964%2Fshow%2F&amp;page_show_back_url=%2Fphotos%2F78509844%40N08%2Fsets%2F72157629322054964%2F&amp;set_id=72157629322054964&amp;jump_to="></embed>
+                      </object>
+                  </p>
+              </div>
+          </div>
+
+      </div>
+      <footer>
+
+      </footer>
   </div>
-  <footer>
-
-  </footer>
 
 
   <!-- JavaScript at the bottom for fast page loading -->

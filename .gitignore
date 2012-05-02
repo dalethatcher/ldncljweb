@@ -3,3 +3,7 @@ pom.xml
 /lib/
 /classes/
 .lein-deps-sum
+*.ipr
+*.iws
+*.DS_Store
+*.iml
