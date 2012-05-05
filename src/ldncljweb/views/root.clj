@@ -1,5 +1,6 @@
 (ns ldncljweb.views.root
   (:use [noir.core :only [defpage]]
+        [noir.response :only [content-type]]
         [hiccup.core :only [html]]
         [net.cgrand.enlive-html :only [deftemplate append html-snippet]])
   (:import [java.util Date]))
@@ -9,4 +10,5 @@
              (append (html-snippet (html [:p message]))))
 
 (defpage "/" []
-         (main (str "Hello templates! The time is " (Date.))))
+  (content-type "text/html"
+    (main (str "Hello templates! The time is " (Date.)))))
