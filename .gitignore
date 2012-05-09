@@ -7,3 +7,6 @@ pom.xml
 *.iws
 *.DS_Store
 *.iml
+.classpath
+.project
+.settings
