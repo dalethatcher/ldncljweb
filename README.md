@@ -2,5 +2,7 @@ ldncljweb
 =========
 
 lein deps
+
 lein run
-http://localhost:8080
+
+Then point your browser at http://localhost:8080
