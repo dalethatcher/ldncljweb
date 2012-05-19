@@ -1,6 +1,7 @@
 (ns ldncljweb.views.admin
   (:use [noir.core :only [defpage]]
-        [noir.response :only [json]]))
+        [noir.response :only [json]])
+  (:require [ldncljweb.models.posts :as posts]))
 
-(defpage "/admin/posts/name" []
-  (json [:some "bad<script>alert('really?')</script>"]))
+(defpage "/admin/posts/titles" []
+  (json (posts/find-all-posts-titles)))

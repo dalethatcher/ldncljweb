@@ -30,3 +30,10 @@
     (cm/fetch :posts 
               :sort {:date -1} 
               :limit 5)))
+
+(defn find-all-posts-titles []
+  (map #(conj % [:_id (str (:_id %))])
+       (cm/with-mongo conn
+         (cm/fetch :posts 
+                   :only [:title]
+                   :sort {:date -1}))))
