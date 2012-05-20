@@ -1,0 +1,19 @@
+#posts-list {
+    width: 20em;
+    border: #000000 solid thin;
+    float: left;
+    padding: 0.5em;
+    margin-left: 0.5em;
+}
+
+#posts-edit {
+    margin-top: 0.5em;
+    margin-left: 22em;
+    border: #000000 solid thin;
+    padding: 0.5em;
+    margin-right: 0.5em;
+}
+
+.selected {
+    background: #87cefa;
+}

@@ -31,9 +31,23 @@
               :sort {:date -1} 
               :limit 5)))
 
+(defn post-id-to-string [row-values]
+  (if (:_id row-values) (conj row-values [:_id (str (:_id row-values))])
+    row-values))
+
+(defn post-date-to-string [row-values]
+  (if (:date row-values) (conj row-values [:date (str (:date row-values))])
+    row-values))
+
 (defn find-all-posts-titles []
-  (map #(conj % [:_id (str (:_id %))])
+  (map post-id-to-string
        (cm/with-mongo conn
          (cm/fetch :posts 
                    :only [:title]
                    :sort {:date -1}))))
+
+(defn find-post [id]
+  (post-date-to-string
+    (post-id-to-string 
+      (cm/with-mongo conn
+                     (cm/fetch-by-id :posts (cm/object-id id))))))
