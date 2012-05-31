@@ -12,8 +12,15 @@
     border: #000000 solid thin;
     padding: 0.5em;
     margin-right: 0.5em;
+    text-align: right;
 }
 
 .selected {
     background: #87cefa;
+}
+
+#post-edit-area {
+    width: 100%;
+    height: 30em;
+    margin-bottom: 5px;
 }

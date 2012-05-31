@@ -21,7 +21,7 @@
   <!-- Place favicon.ico and apple-touch-icon.png in the root directory: mathiasbynens.be/notes/touch-icons -->
 
   <link rel="stylesheet" href="../css/style.css">
-
+  <link rel="stylesheet" href="css/ui-lightness/jquery-ui-1.8.20.custom.css">
   <link rel="stylesheet" href="css/ldncljweb-admin.css">
 
   <!-- More ideas for your <head> here: h5bp.com/d/head-Tips -->
@@ -44,7 +44,8 @@
       <div id="main" role="main">
           <div id="posts-list"></div>
           <div id="posts-edit">
-              Click a title on the left to display post source.
+              <textarea id="post-edit-area">Click a title on the left to display post source.</textarea>
+              <input id="post-submit" type="submit" value="Save">
           </div>
       </div>
 
@@ -58,6 +59,9 @@
   <!-- Grab Google CDN's jQuery, with a protocol relative URL; fall back to local if offline -->
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
   <script>window.jQuery || document.write('<script src="../js/libs/jquery-1.7.1.min.js"><\/script>')</script>
+
+  <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/jquery-ui.min.js"></script>
+  <script>window.jQuery.ui || document.write('<script src="js/jquery-ui-1.8.18.min.js"><\/script>')</script>
 
   <!-- scripts concatenated and minified via build script -->
   <script src="../js/plugins.js"></script>

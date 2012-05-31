@@ -1,10 +1,14 @@
+$('#post-submit').button().click(function () {
+    alert('pressed!');
+});
+
 function loadPostData(id, title) {
-    $('#posts-edit').text('Loading "' + title + '"...');
+    //$('#posts-edit').text('Loading "' + title + '"...');
     $.ajax({
         url: "/admin/posts/" + id,
         dataType: "json",
         success: function(data, textStatus, jqXHR) {
-            $('#posts-edit').text(data['body']);
+            $('#post-edit-area').val(data['body']);
         }
     });
 }
