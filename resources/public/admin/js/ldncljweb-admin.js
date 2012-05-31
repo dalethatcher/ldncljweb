@@ -1,5 +1,13 @@
-$('#post-submit').button().click(function () {
-    alert('pressed!');
+$('#post-save').button().click(function () {
+    alert('TBI!');
+});
+
+$('#post-new').button().click(function() {
+    alert('TBI!');
+});
+
+$('#post-delete').button().click(function() {
+    alert('TBI!');
 });
 
 function loadPostData(id, title) {
@@ -8,6 +16,9 @@ function loadPostData(id, title) {
         url: "/admin/posts/" + id,
         dataType: "json",
         success: function(data, textStatus, jqXHR) {
+            $('#post-id').val(data['_id']);
+            $('#post-date').val(data['date']);
+            $('#post-title').val(data['title']);
             $('#post-edit-area').val(data['body']);
         }
     });
