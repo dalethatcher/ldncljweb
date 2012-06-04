@@ -46,8 +46,18 @@
                    :only [:title]
                    :sort {:date -1}))))
 
+(defn find-post-raw [id]
+  (cm/with-mongo conn
+                 (cm/fetch-by-id :posts (cm/object-id id))))                                 
+                                 
 (defn find-post [id]
   (post-date-to-string
     (post-id-to-string 
-      (cm/with-mongo conn
-                     (cm/fetch-by-id :posts (cm/object-id id))))))
+      (find-post-raw id))))
+
+(defn update-post [id date title body]
+  (cm/with-mongo conn
+          (cm/update! :posts (find-post-raw id)
+                      {:date date
+                       :title title
+                       :body body})))
