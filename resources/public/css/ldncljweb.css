@@ -67,6 +67,15 @@ header {
     padding-left: 5px;
 }
 
+#posts p {
+	margin-top: 0;
+	margin-bottom: 0;
+}
+
+.post {
+	margin-bottom: 1.5em;
+}
+
 .address {
     color: #777;
     padding-left: 5em;
@@ -74,8 +83,17 @@ header {
 
 h1 {
     font-size: 1.25em;
+    margin-bottom: 0;
 }
 
 footer {
     clear: both;
+}
+
+.date {
+	font-size: 0.7em;
+	color: grey;
+	font-style: italic;
+	text-align: right;
+	margin-right: 2em;
 }
