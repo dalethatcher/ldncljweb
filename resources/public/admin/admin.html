@@ -45,9 +45,9 @@
           <div id="posts-list"></div>
           <div id="posts-edit">
               <input id="post-id" type="hidden">
-              <input id="post-title" type="text">
-              <input id="post-date" type="text">
-              <textarea id="post-edit-area">Click a title on the left to display post source.</textarea>
+              <input id="post-title" type="text" placeholder="Title">
+              <input id="post-date" type="text" placeholder="Date e.g. 2012-05-01T00:00:00.000+01:00 (leave blank for now)">
+              <textarea id="post-edit-area" placeholder="Body of post, just the HTML please ma'am">Click a title on the left to display post source.</textarea>
               <input id="post-save" type="submit" value="Save">
               <input id="post-new" type="submit" value="New">
               <input id="post-delete" type="submit" value="Delete">
@@ -57,6 +57,10 @@
       <footer>
 
       </footer>
+  </div>
+  
+  <div id="delete-confirm">
+    <p>Really delete post '<span id="delete-confirm-title"></span>'?
   </div>
 
   <!-- JavaScript at the bottom for fast page loading -->

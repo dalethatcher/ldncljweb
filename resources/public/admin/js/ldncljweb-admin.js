@@ -1,3 +1,16 @@
+var deleteConfirmDialog = $('#delete-confirm').dialog({ 
+	autoOpen: false,
+	modal: true,
+	buttons: {
+		"Yes": function() {
+			deleteCurrentPost();
+			deleteConfirmDialog.dialog('close');
+		},
+		"No": function() {
+			deleteConfirmDialog.dialog('close');
+		}
+	}});
+
 $('#post-save').button().click(function () {
 	id = $('#post-id').val();
 	
@@ -47,18 +60,23 @@ $('#post-new').button().click(function() {
 	clearPostFields();
 });
 
+function deleteCurrentPost() {
+	clearPostFields();
+	$.ajax({
+		url: "/admin/posts/" + id,
+		type: "DELETE",
+		success: function(data) {
+			loadPosts();
+		}
+	});
+}
+
 $('#post-delete').button().click(function() {
 	id = $('#post-id').val();
-	clearPostFields();
 	
 	if (id.length > 0) {
-		$.ajax({
-			url: "/admin/posts/" + id,
-			type: "DELETE",
-			success: function(data) {
-				loadPosts();
-			}
-		});
+		$('#delete-confirm-title').text($('#post-title').val());
+		deleteConfirmDialog.dialog('open');
 	}
 });
 
