@@ -48,7 +48,18 @@ $('#post-new').button().click(function() {
 });
 
 $('#post-delete').button().click(function() {
-    alert('TBI!');
+	id = $('#post-id').val();
+	clearPostFields();
+	
+	if (id.length > 0) {
+		$.ajax({
+			url: "/admin/posts/" + id,
+			type: "DELETE",
+			success: function(data) {
+				loadPosts();
+			}
+		});
+	}
 });
 
 function loadPostData(id, title) {
@@ -66,6 +77,7 @@ function loadPostData(id, title) {
 }
 
 function loadPosts() {
+	$('#posts-list').html('');
 	$.ajax({
 		url : "/admin/posttitles",
 		dataType : 'json',

@@ -61,3 +61,7 @@
                       {:date date
                        :title title
                        :body body})))
+
+(defn delete-post [id]
+  (cm/with-mongo conn
+                 (cm/destroy! :posts { :_id (cm/object-id id) })))

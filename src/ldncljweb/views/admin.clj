@@ -22,3 +22,7 @@
 
 (defpage [:put "/admin/posts/:id"] {id :id :keys [title date body]}
   (posts/update-post id (parse-date date) title body))
+
+(defpage [:delete "/admin/posts/:id"] {id :id}
+  (posts/delete-post id)
+  "")
