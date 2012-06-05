@@ -50,12 +50,18 @@ header {
 
 .sub-title {
     text-align: center;
-    line-height: 2em;
+    line-height: 3.5em;
+    font-size: 1.25em;
 }
 
 #sidebar {
     float: right;
     width: 350px;
+}
+
+#sidebar p {
+    text-align: justify;
+    padding-right: 1em;
 }
 
 #sidebar iframe {
@@ -64,7 +70,7 @@ header {
 
 #posts {
     width: 440px;
-    padding-left: 5px;
+    padding-left: 1em;
 }
 
 #posts p {
@@ -96,4 +102,10 @@ footer {
 	font-style: italic;
 	text-align: right;
 	margin-right: 2em;
+}
+
+#dojo-logo {
+    float: left;
+    padding-right: 10px;
+    margin-bottom: -0.5em;
 }
