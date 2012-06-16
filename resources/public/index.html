@@ -34,17 +34,33 @@
   <script src="https://browserid.org/include.js"></script>
 
   <script type="text/javascript">
-        (function($) {
+    (function($) {
             function gotAssertion(assertion){
-               alert(assertion);
+               if (assertion !== null) {
+                  $.ajax({
+                    type: 'POST',
+                    url: '/login',
+                    data: { assertion: assertion },
+                    success: function(res, status, xhr) {
+                       alert("success! " + res);
+                       if (res === null) {}//loggedOut();
+                          else loggedIn(res);
+                       },
+                    error: function(res, status, xhr) {
+                       alert("login failure" + res);
+                    }
+                 });
+               } else {
+                //loggedOut();
+                alert("logged out!" + res);
+               }
             }
             $(function(){
-            $('#browserid').click(function() {
-             alert("HAI");
-             navigator.id.get(gotAssertion);
-             return false;
-          });
-          });
+              $('#browserid').click(function() {
+               navigator.id.get(gotAssertion);
+               return false;
+              });
+            });
         })(jQuery);
   </script>
 </head>
