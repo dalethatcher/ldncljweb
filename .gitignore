@@ -13,3 +13,4 @@ pom.xml
 eclipse-classes
 *~
 .clojurescript-output
+resources/public/js/cljs.js
