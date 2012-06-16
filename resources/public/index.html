@@ -42,7 +42,7 @@
                     url: '/login',
                     data: { assertion: assertion },
                     success: function(res, status, xhr) {
-                       alert("success! " + res);
+                       alert("success! " + res.hai);
                        if (res === null) {}//loggedOut();
                           else loggedIn(res);
                        },
