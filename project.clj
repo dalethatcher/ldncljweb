@@ -5,5 +5,11 @@
                            [enlive "1.0.0"]
                            [congomongo "0.1.9"]
                            [clj-time "0.4.2"]]
+            :dev-dependencies [[lein-cljsbuild "0.0.13"]] ; cljsbuild plugin
+            :cljsbuild {:source-path "src-cljs"
+                        :compiler {:output-to "resources/public/js/cljs.js"
+                                   :optimizations :simple
+                                   :pretty-print true
+                                   }
+                        }
             :main ldncljweb.server)
-
