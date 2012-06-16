@@ -42,9 +42,11 @@
                     url: '/login',
                     data: { assertion: assertion },
                     success: function(res, status, xhr) {
-                       alert("success! " + res.hai);
-                       if (res === null) {}//loggedOut();
-                          else loggedIn(res);
+                       if (res === null) 
+                       { alert ("Null response");}
+                       else {
+                          window.location= res.redirect_to;
+                        }
                        },
                     error: function(res, status, xhr) {
                        alert("login failure" + res);

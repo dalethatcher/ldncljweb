@@ -5,5 +5,6 @@
                            [enlive "1.0.0"]
                            [congomongo "0.1.9"]
                            [clj-time "0.4.2"]
+                           [cheshire "4.0.0"]
                            [clj-http "0.4.3"]]
             :main ldncljweb.server)
