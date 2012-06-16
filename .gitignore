@@ -11,3 +11,5 @@ pom.xml
 .project
 .settings
 eclipse-classes
+*~
+.clojurescript-output
