@@ -14,3 +14,6 @@ eclipse-classes
 *~
 .clojurescript-output
 resources/public/js/cljs.js
+target
+*#
+.lein-failures
