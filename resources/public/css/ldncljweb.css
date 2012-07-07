@@ -109,3 +109,15 @@ footer {
     padding-right: 10px;
     margin-bottom: -0.5em;
 }
+
+#login-status {
+    position: absolute;
+    right: 0px;
+    top: 0px;
+}
+
+#login-status a {
+    color: white;
+    text-decoration: none;
+    margin-right: 5px;
+}
