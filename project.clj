@@ -8,7 +8,8 @@
                            ;; ClojureScript
                            [jayq "0.1.0-alpha2"]
                            ;; [fetch "0.1.0-alpha2"]
-                           ]
+                           [cheshire "4.0.0"]
+                           [clj-http "0.4.3"]]
             :dev-dependencies [[lein-cljsbuild "0.0.13"]] ; cljsbuild plugin
             :cljsbuild {:source-path "src-cljs"
                         :compiler {:output-to "resources/public/js/cljs.js"
