@@ -60,8 +60,10 @@
           (cm/update! :posts (find-post-raw id)
                       {:date date
                        :title title
-                       :body body})))
+                       :body body}))
+  nil)
 
 (defn delete-post [id]
   (cm/with-mongo conn
-                 (cm/destroy! :posts { :_id (cm/object-id id) })))
+                 (cm/destroy! :posts { :_id (cm/object-id id) }))
+  nil)
