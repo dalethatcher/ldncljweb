@@ -14,18 +14,40 @@
     (is (= head {:header-1 "value-1" :header-2 "value-2"}))
     (is (= body "This is the body\nof the message"))))
 
-(def multipart-body (str "--boundry"
+(def parsed-header {:Content-Type "multipart/alternative; boundary=1234"})
+
+(deftest can-find-message-boundry
+  (is (= "1234" (aa/parse-boundry-from-header parsed-header))))
+
+(def multipart-body (str "--boundry\n"
                          "Content-Type: text/plain; charset=ISO-8859-1\n"
                          "\n"
                          "Some text\n"
-                         "--boundry"
+                         "--boundry\n"
                          "Content-Type: text/html; charset=ISO-8859-1\n"
                          "\n"
                          "<b>Some text</b>\n"
-                         "--boundry--"))
+                         "--boundry--\n"))
 
 (deftest can-split-body-by-boundry
   (let [parts-by-type (aa/parse-body-into-types "boundry" multipart-body)]
     (is (= (parts-by-type "text/plain") "Some text\n"))
     (is (= (parts-by-type "text/html") "<b>Some text</b>\n"))))
   
+(def multipart-message (str "Content-Type: multipart/alternative; boundary=1234\n"
+                            "\n"
+                            "--1234\n"
+                            "Content-Type: text/plain; charset=ISO-8859-1\n"
+                            "\n"
+                            "Plain text body.\n"
+                            "\n"
+                            "--1234\n"
+                            "Content-Type: text/html; charset=ISO-8859-1\n"
+                            "Content-Transfer-Encoding: quoted-printable\n"
+                            "\n"
+                            "<b>HTML body.</b>\n"
+                            "--1234--\n"))
+
+(deftest can-parse-message-into-types
+  (let [message-bodies-by-type (aa/parse-message-by-type multipart-message)]
+    (is (= (message-bodies-by-type "text/html") "<b>HTML body.</b>\n"))))

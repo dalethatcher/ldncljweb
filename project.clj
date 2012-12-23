@@ -18,4 +18,5 @@
                                    ;; :externs ["externs/jquery.js"]
                                    }
                         }
-            :main ldncljweb.server)
+            :main ldncljweb.server
+            :aot [ldncljweb.tools.add-announcement])
