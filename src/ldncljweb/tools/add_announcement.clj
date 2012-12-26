@@ -27,7 +27,7 @@
 
 (defn parse-boundary-from-header [header]
   (let [ct (header :Content-Type)
-        [_ boundary] (re-matches #".*boundary=(.*)" "multipart/alternative; boundary=1234")]
+        [_ boundary] (re-matches #".*boundary=(.*)" ct)]
         boundary))
 
 (defn seq-matches? [a b]
@@ -63,7 +63,30 @@
         body-parts (parse-body-into-types boundary body)] 
   body-parts))
 
+(defn parse-next-escape [r]
+  (let [[f s & nr] r
+        string-code (str f s)
+        int-code (Integer/parseInt string-code 16)]
+    [(char int-code) nr]))
+
+(defn parse-quoted-printable-line [line]
+  (loop [f (first line)
+         r (rest line)
+         a []]
+    (if (= f \=)
+      (if (empty? r)
+        (apply str (conj a \newline))
+        (let [[nc nr] (parse-next-escape r)]
+          (recur (first nr) (rest nr) (conj a nc))))
+      (if (empty? r)
+        (apply str (conj a f))
+        (recur (first r) (rest r) (conj a f))))))
+
+(defn parse-quoted-printable [message]
+  (apply str (map parse-quoted-printable-line (cs/split-lines message))))
+
 (defn -main [& args]
   (let [raw-message (slurp *in*)
-        message (parse-message raw-message)]
-    (println message)))
+        message-by-types (parse-message-by-type raw-message)
+        html-body (message-by-types "text/html")]
+    (println html-body)))

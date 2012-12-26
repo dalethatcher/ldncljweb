@@ -51,3 +51,10 @@
 (deftest can-parse-message-into-types
   (let [message-bodies-by-type (aa/parse-message-by-type multipart-message)]
     (is (= (message-bodies-by-type "text/html") "<b>HTML body.</b>\n"))))
+
+
+(def quoted-printable-example (str "first line here=\n"
+                                   "this=3Dsecond\n"))
+
+(deftest can-deconvert-quoted-printable
+  (is (= "first line here\nthis=second" (aa/parse-quoted-printable quoted-printable-example))))
