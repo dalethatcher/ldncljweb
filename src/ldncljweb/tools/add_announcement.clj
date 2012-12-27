@@ -1,5 +1,7 @@
 (ns ldncljweb.tools.add-announcement
   (:require [clojure.string :as cs])
+  (:require [ldncljweb.models.posts :as posts])
+  (:import [org.joda.time DateTime])
   (:gen-class))
 
 (defn listify [v]
@@ -95,5 +97,4 @@
         de-quoted (parse-quoted-printable html-body)
         de-signatured (drop-last-lines de-quoted 7)
         subject (cs/replace-first (header :Subject) #".*?ANN:\s*" "")]
-    (println "Subject:" subject)
-    (println de-signatured)))
+    (println "Created post:" (posts/create-post (DateTime.) subject de-signatured))))
