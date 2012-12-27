@@ -61,7 +61,7 @@
   (let [[header body] (parse-message message)
         boundary (parse-boundary-from-header header)
         body-parts (parse-body-into-types boundary body)] 
-  body-parts))
+  [header body-parts]))
 
 (defn parse-next-escape [r]
   (let [[f s & nr] r
@@ -75,18 +75,25 @@
          a []]
     (if (= f \=)
       (if (empty? r)
-        (apply str (conj a \newline))
+        (apply str a)
         (let [[nc nr] (parse-next-escape r)]
           (recur (first nr) (rest nr) (conj a nc))))
       (if (empty? r)
-        (apply str (conj a f))
+        (apply str (concat a [f \newline]))
         (recur (first r) (rest r) (conj a f))))))
 
 (defn parse-quoted-printable [message]
   (apply str (map parse-quoted-printable-line (cs/split-lines message))))
 
+(defn drop-last-lines [message n]
+  (apply str (map #(str % \newline) (drop-last n (cs/split-lines message)))))
+
 (defn -main [& args]
   (let [raw-message (slurp *in*)
-        message-by-types (parse-message-by-type raw-message)
-        html-body (message-by-types "text/html")]
-    (println html-body)))
+        [header message-by-types] (parse-message-by-type raw-message)
+        html-body (message-by-types "text/html")
+        de-quoted (parse-quoted-printable html-body)
+        de-signatured (drop-last-lines de-quoted 7)
+        subject (cs/replace-first (header :Subject) #".*?ANN:\s*" "")]
+    (println "Subject:" subject)
+    (println de-signatured)))

@@ -34,7 +34,8 @@
     (is (= (parts-by-type "text/plain") "Some text\n"))
     (is (= (parts-by-type "text/html") "<b>Some text</b>\n"))))
   
-(def multipart-message (str "Content-Type: multipart/alternative; boundary=1234\n"
+(def multipart-message (str "Subject: Some subject\n" 
+                            "Content-Type: multipart/alternative; boundary=1234\n"
                             "\n"
                             "--1234\n"
                             "Content-Type: text/plain; charset=ISO-8859-1\n"
@@ -49,12 +50,13 @@
                             "--1234--\n"))
 
 (deftest can-parse-message-into-types
-  (let [message-bodies-by-type (aa/parse-message-by-type multipart-message)]
+  (let [[header message-bodies-by-type] (aa/parse-message-by-type multipart-message)]
+    (is (= (header :Subject) "Some subject"))
     (is (= (message-bodies-by-type "text/html") "<b>HTML body.</b>\n"))))
 
-
-(def quoted-printable-example (str "first line here=\n"
-                                   "this=3Dsecond\n"))
+(def quoted-printable-example (str "first line encoded here=\n"
+                                   "this=3Dsecond\n"
+                                   "and the third\n"))
 
 (deftest can-deconvert-quoted-printable
-  (is (= "first line here\nthis=second" (aa/parse-quoted-printable quoted-printable-example))))
+  (is (= "first line encoded herethis=second\nand the third\n" (aa/parse-quoted-printable quoted-printable-example))))
