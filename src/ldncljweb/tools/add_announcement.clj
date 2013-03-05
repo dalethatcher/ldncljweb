@@ -49,21 +49,33 @@
                    result
                    (conj acc (first remainder))))))
   
-(defn content-type [message]
-  (let [[headers _] message
-        raw-content-type (headers :Content-Type)]
+(defn content-type [header]
+  (let [raw-content-type (header :Content-Type)]
     (first (cs/split raw-content-type #";"))))
 
 (defn parse-body-into-types [boundary body]
   (let [parts (filter #(not (empty? %)) (split-at-boundary boundary body))
         parsed-parts (map parse-message parts)]
-    (reduce #(conj %1 [(content-type %2) (second %2)]) {} parsed-parts)))
+    (reduce #(conj %1 [(content-type (first %2)) (second %2)]) {} parsed-parts)))
+
+(defn parse-multipart-message-into-types [header body]
+  (let [boundary (parse-boundary-from-header header)
+        body-parts (parse-body-into-types boundary body)]
+    [header body-parts]))
+
+(defn parse-singlepart-message-into-types [header body]
+  (let [type (content-type header)]
+    [header {type body}]))
+
+(defn is-multipart-message? [header]
+  (let [type (content-type header)]
+    (= type "multipart/alternative")))
 
 (defn parse-message-by-type [message]
-  (let [[header body] (parse-message message)
-        boundary (parse-boundary-from-header header)
-        body-parts (parse-body-into-types boundary body)] 
-  [header body-parts]))
+  (let [[header body] (parse-message message)]
+    (if (is-multipart-message? header)
+      (parse-multipart-message-into-types header body)
+      (parse-singlepart-message-into-types header body))))
 
 (defn parse-next-escape [r]
   (let [[f s & nr] r
@@ -90,11 +102,14 @@
 (defn drop-last-lines [message n]
   (apply str (map #(str % \newline) (drop-last n (cs/split-lines message)))))
 
-(defn -main [& args]
-  (let [raw-message (slurp *in*)
-        [header message-by-types] (parse-message-by-type raw-message)
+(defn process-raw-message [raw-message]
+  (let [[header message-by-types] (parse-message-by-type raw-message)
         html-body (message-by-types "text/html")
         de-quoted (parse-quoted-printable html-body)
         de-signatured (drop-last-lines de-quoted 7)
         subject (cs/replace-first (header :Subject) #".*?ANN:\s*" "")]
     (println "Created post:" (posts/create-post (DateTime.) subject de-signatured))))
+
+(defn -main [& args]
+  (let [raw-message (slurp *in*)]
+        (process-raw-message raw-message)))

@@ -2,8 +2,6 @@
   (:use [clojure.test])
   (:require [ldncljweb.tools.add-announcement :as aa]))
 
-(def example (slurp "doc/announcement"))
-
 (def simple-message (str "header-1: value-1\n"
                          "header-2: value-2\n"
                          "\n"
@@ -49,10 +47,20 @@
                             "<b>HTML body.</b>\n"
                             "--1234--\n"))
 
-(deftest can-parse-message-into-types
+(deftest can-parse-multipart-message-into-types
   (let [[header message-bodies-by-type] (aa/parse-message-by-type multipart-message)]
     (is (= (header :Subject) "Some subject"))
     (is (= (message-bodies-by-type "text/html") "<b>HTML body.</b>\n"))))
+
+(def single-part-message (str "Subject: [ldnclj] ANN: Feb 11th Dojo at Forward\n"
+                              "Content-Type: text/plain; charset=ISO-8859-1\n"
+                              "\n"
+                              "Plain text body\n"))
+
+(deftest can-parse-single-part-message-into-types
+  (let [[header message-bodies-by-type] (aa/parse-message-by-type single-part-message)]
+    (is (= (header :Subject) "[ldnclj] ANN: Feb 11th Dojo at Forward"))
+    (is (= (message-bodies-by-type "text/plain") "Plain text body\n"))))
 
 (def quoted-printable-example (str "first line encoded here=\n"
                                    "this=3Dsecond\n"
