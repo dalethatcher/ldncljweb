@@ -71,7 +71,7 @@
 
 (deftest html-body-is-preferred
   (let [bodies-by-type {"text/plain" "plain body" "text/html" "<body>html body</body>"}]
-    (is (= "<body>html body</body>" (aa/message-body-to-html bodies-by-type)))))
+    (is (= "<body>html body</body>\n" (aa/message-body-to-html bodies-by-type)))))
 
 (deftest can-generate-html-from-plain-message
   (let [plain (str "First line\n"

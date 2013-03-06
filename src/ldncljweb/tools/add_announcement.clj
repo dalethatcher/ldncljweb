@@ -113,13 +113,15 @@
 
 (defn message-body-to-html [message-by-types]
   (let [html-body (message-by-types "text/html")]
-    (or html-body (generate-html (message-by-types "text/plain")))))
+    (println "message-by-types: " message-by-types)
+    (if html-body
+      (parse-quoted-printable html-body)
+      (generate-html (message-by-types "text/plain")))))
 
 (defn process-raw-message [raw-message]
   (let [[header message-by-types] (parse-message-by-type raw-message)
-        html-body (message-by-types "text/html")
-        de-quoted (parse-quoted-printable html-body)
-        de-signatured (drop-last-lines de-quoted 7)
+        html-body (message-body-to-html message-by-types)
+        de-signatured (drop-last-lines html-body 7)
         subject (cs/replace-first (header :Subject) #".*?ANN:\s*" "")]
     (println "Created post:" (posts/create-post (DateTime.) subject de-signatured))))
 
