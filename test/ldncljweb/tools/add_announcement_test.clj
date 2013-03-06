@@ -68,3 +68,7 @@
 
 (deftest can-deconvert-quoted-printable
   (is (= "first line encoded herethis=second\nand the third\n" (aa/parse-quoted-printable quoted-printable-example))))
+
+(deftest html-body-is-preferred
+  (let [bodies-by-type {"text/plain" "plain body" "text/html" "<body>html body</body>"}]
+    (is (= "<body>html body</body>" (aa/message-body-to-html bodies-by-type)))))

@@ -102,6 +102,13 @@
 (defn drop-last-lines [message n]
   (apply str (map #(str % \newline) (drop-last n (cs/split-lines message)))))
 
+(defn generate-html [plain-body]
+  plain-body)
+
+(defn message-body-to-html [message-by-types]
+  (let [html-body (message-by-types "text/html")]
+    (or html-body (generate-html (message-by-types "text/plain")))))
+
 (defn process-raw-message [raw-message]
   (let [[header message-by-types] (parse-message-by-type raw-message)
         html-body (message-by-types "text/html")
