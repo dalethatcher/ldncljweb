@@ -102,8 +102,14 @@
 (defn drop-last-lines [message n]
   (apply str (map #(str % \newline) (drop-last n (cs/split-lines message)))))
 
+(defn generate-html-line [line]
+  (let [link-converted (cs/replace line #"http[s]{0,1}://[A-Za-z0-9+%.-]*" #(str "<a href=\"" %1 "\">" %1 "</a>"))]
+    [link-converted "<br>\n"]))
+
 (defn generate-html [plain-body]
-  plain-body)
+  (let [lines (cs/split-lines plain-body)
+        converted-lines (mapcat generate-html-line lines)]
+  (apply str converted-lines)))
 
 (defn message-body-to-html [message-by-types]
   (let [html-body (message-by-types "text/html")]

@@ -72,3 +72,11 @@
 (deftest html-body-is-preferred
   (let [bodies-by-type {"text/plain" "plain body" "text/html" "<body>html body</body>"}]
     (is (= "<body>html body</body>" (aa/message-body-to-html bodies-by-type)))))
+
+(deftest can-generate-html-from-plain-message
+  (let [plain (str "First line\n"
+                   "Second line\n"
+                   "http://link.html\n")]
+    (is (= (aa/generate-html plain) (str "First line<br>\n"
+                                         "Second line<br>\n"
+                                         "<a href=\"http://link.html\">http://link.html</a><br>\n")))))
